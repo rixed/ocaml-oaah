@@ -22,17 +22,17 @@ struct
 
 	let poke t c x y a =
 		if x >= 0 && x < t.width &&
-		   y >= 0 && x < t.height &&
+		   y >= 0 && y < t.height &&
 		   a > 0. then
 			let a = Color.K.of_float a in
-			let a' = Color.K.sub Color.K.one a in
+			let a = if Color.K.compare a Color.K.one > 0 then Color.K.one else a in
+			let a'= Color.K.sub Color.K.one a in
 			let o = y * t.width + x in
 			let combine_comp old_comp new_comp =
 				Color.K.add
 					(Color.K.mul a' old_comp)
 					(Color.K.mul a  new_comp) in
-			let new_col = array_zip combine_comp t.image.(o) c in
-			t.image.(o) <- new_col
+			t.image.(o) <- array_zip combine_comp t.image.(o) c
 
 	let save t ?(format=PNM) filename =
 		let ochan = open_out_bin filename in

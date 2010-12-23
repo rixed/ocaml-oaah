@@ -1,5 +1,5 @@
-OCAMLC     = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamlc -thread
-OCAMLOPT   = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamlopt -thread
+OCAMLC     = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamlc -thread -rectypes
+OCAMLOPT   = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamlopt -thread -rectypes
 OCAMLDEP   = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamldep
 INCS       =
 OCAMLOPTFLAGS = $(INCS) -w Ae -g

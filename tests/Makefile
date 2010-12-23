@@ -6,7 +6,7 @@ opt: $(PROGRAMS:.byte=.opt)
 
 ML_SOURCES = simple.ml
 
-REQUIRES = oaah
+REQUIRES = oaah geom
 
 include ../make.common
 
