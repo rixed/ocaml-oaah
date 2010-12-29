@@ -1,6 +1,6 @@
 OCAMLPATH = ../..
 
-PROGRAMS = simple.byte
+PROGRAMS = simple.byte font.byte
 all: $(PROGRAMS)
 opt: $(PROGRAMS:.byte=.opt)
 

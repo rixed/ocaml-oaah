@@ -52,8 +52,8 @@ let hole () =
 	Img.show image
 
 let () =
-(*	show_white () ;*)
-(*	various_opacity () ;*)
-(*	polygon () *)
+	show_white () ;
+	various_opacity () ;
+	polygon () ;
 	hole ()
 
