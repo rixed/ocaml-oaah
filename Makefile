@@ -1,6 +1,9 @@
 OCAMLPATH = ..
 
-all: oaah.cma
+.PHONY: all
+all: byte opt
+
+byte: oaah.cma
 opt: oaah.cmxa
 
 NAME = oaah
