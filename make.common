@@ -1,9 +1,9 @@
-OCAMLC     = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamlc -thread -rectypes
-OCAMLOPT   = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamlopt -thread -rectypes
-OCAMLDEP   = OCAMLPATH=$(OCAMLPATH) ocamlfind ocamldep
+OCAMLC     = ocamlfind ocamlc -thread -rectypes
+OCAMLOPT   = ocamlfind ocamlopt -thread -rectypes
+OCAMLDEP   = ocamlfind ocamldep
 INCS       =
-OCAMLOPTFLAGS = $(INCS) -w Ae -g
-OCAMLFLAGS    = $(INCS) -w Ae -g
+OCAMLOPTFLAGS = $(INCS) -w Ae -g -annot
+OCAMLFLAGS    = $(INCS) -w Ae -g -annot
 
 CAMLINCLUDE = $(shell ocamlfind printconf stdlib)
 CPPFLAGS += -I $(CAMLINCLUDE) -I .

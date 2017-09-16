@@ -1,0 +1,18 @@
+opam-version: "1.2"
+name: "oaah"
+version: "~unknown"
+maintainer: "Cedric Cellier <rixed@happyleptic.org>"
+authors: "Cedric Cellier <rixed@happyleptic.org>"
+build: [
+  [make]
+]
+homepage: "https://github.com/rixed/ocaml-oaah"
+dev-repo: "git@github.com:rixed/ocaml-oaah.git"
+bug-reports: "https://github.com/rixed/ocaml-oaah/issues"
+install: [make "install"]
+remove: ["ocamlfind" "remove" "oaah"]
+depends: [
+  "ocamlfind" {build}
+  "bricabrac"
+  "algen"
+]

@@ -1,5 +1,3 @@
-OCAMLPATH = ..
-
 .PHONY: all
 all: byte opt
 
