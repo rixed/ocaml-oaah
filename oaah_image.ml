@@ -76,7 +76,7 @@ struct
                         (byte_of_comp c.(1))
                         (byte_of_comp c.(2)) in
         set_color color ;
-        plot x (t.height - 1 - y)
+        plot x y
       done
     done
 
