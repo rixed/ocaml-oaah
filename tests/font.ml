@@ -13,6 +13,12 @@ module Algo = Geom_algo.Algorithms (Poly) (Path)
 module Glyph = Text_impl.Glyph (Poly) (Path)
 module Word = Text_impl.Word (Glyph)
 
+let display t =
+  Img.open_graph t ;
+  Img.draw t ;
+  ignore (Graphics.(wait_next_event [Button_down; Key_pressed])) ;
+  Graphics.close_graph ()
+
 let white = [| Kcol.one ; Kcol.one ; Kcol.one |]
 let black = Color.zero
 let width, height = 400, 400
@@ -48,7 +54,7 @@ let word () =
 			at_scale (next_y scale y) (next_scale scale)
 		end in
 	at_scale K.zero (K.of_float 3.) ;
-	Img.show image
+	display image
 
 let () =
 	word ()

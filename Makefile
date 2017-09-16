@@ -8,7 +8,7 @@ NAME = oaah
 
 ML_SOURCES = oaah.ml oaah_image.ml
 
-REQUIRES = bricabrac algen
+REQUIRES = bricabrac algen graphics
 
 include make.common
 
