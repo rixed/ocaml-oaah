@@ -1,5 +1,5 @@
-OCAMLC     = ocamlfind ocamlc -thread -rectypes
-OCAMLOPT   = ocamlfind ocamlopt -thread -rectypes
+OCAMLC     = ocamlfind ocamlc
+OCAMLOPT   = ocamlfind ocamlopt
 OCAMLDEP   = ocamlfind ocamldep
 INCS       =
 OCAMLOPTFLAGS = $(INCS) -w Ae -g -annot

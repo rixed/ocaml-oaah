@@ -1,5 +1,5 @@
 description = "Ocaml Anti-Aliased grapHics"
 version = "1"
-requires = "bricabrac algen graphics"
+requires = "algen graphics"
 archive(byte) = "oaah.cma"
 archive(native) = "oaah.cmxa"

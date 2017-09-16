@@ -13,6 +13,6 @@ install: [make "install"]
 remove: ["ocamlfind" "remove" "oaah"]
 depends: [
   "ocamlfind" {build}
-  "bricabrac"
   "algen"
+  "graphics"
 ]

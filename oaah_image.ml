@@ -1,4 +1,3 @@
-open Bricabrac
 open Oaah
 
 module Make_RAW (Color : COLOR) =
@@ -32,7 +31,8 @@ struct
         Color.K.add
           (Color.K.mul a' old_comp)
           (Color.K.mul a  new_comp) in
-      t.image.(o) <- array_zip combine_comp t.image.(o) c
+      t.image.(o) <- Array.mapi (fun i p ->
+        combine_comp p c.(i)) t.image.(o)
 
   let poke_scanline t c x1 x2 y a =
     for x = x1 to x2 do
