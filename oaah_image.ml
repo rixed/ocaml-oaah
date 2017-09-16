@@ -69,6 +69,7 @@ struct
 
   let draw t =
     let open Graphics in
+    auto_synchronize false ;
     for x = 0 to t.width-1 do
       for y = 0 to t.height-1 do
         let c = t.image.(y * t.width + x) in
@@ -78,7 +79,8 @@ struct
         set_color color ;
         plot x y
       done
-    done
+    done ;
+    synchronize ()
 
 end
 
