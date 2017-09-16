@@ -34,6 +34,11 @@ struct
           (Color.K.mul a  new_comp) in
       t.image.(o) <- array_zip combine_comp t.image.(o) c
 
+  let poke_scanline t c x1 x2 y a =
+    for x = x1 to x2 do
+      poke t c x y a
+    done
+
   let save t ?(format=PNM) filename =
     let ochan = open_out_bin filename in
     let write_color c =
