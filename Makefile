@@ -6,7 +6,7 @@ opt: oaah.cmxa
 
 NAME = oaah
 
-ML_SOURCES = oaah.ml oaah_image.ml
+ML_SOURCES = oaah.ml oaah_color.ml oaah_image.ml
 
 REQUIRES = algen graphics
 

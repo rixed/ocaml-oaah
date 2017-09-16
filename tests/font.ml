@@ -1,7 +1,7 @@
 (* Some modules to play with *)
 
 module Kcol = Algen_impl.FloatField
-module Color = Algen_vector.Make (Kcol) (struct let v = 3 end)
+module Color = Oaah_color.Make (Kcol)
 module Img = Oaah_image.Make (Color)
 
 module K = Algen_impl.IntField (struct let v = 8 end)

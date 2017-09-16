@@ -30,6 +30,8 @@ let format_abgr =
 module type COLOR =
 sig
   include Algen_intf.VECTOR
+  val white : t
+  val black : t
 end
 
 module type IMAGE =
