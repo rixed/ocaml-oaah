@@ -39,19 +39,21 @@ sig
 
   val make  : ?default:Color.t -> int -> int -> t
   val show  : t -> unit
-  (* [show img] will display [img] using the external viewer specified with the IMG_VIEWER
+  (** [show img] will display [img] using the external viewer specified with the IMG_VIEWER
    * environment variable. *)
+
   val draw  : t -> unit
-  (* [draw img] will draw the image using the Graphics module (which must
+  (** [draw img] will draw the image using the Graphics module (which must
    * have been initialized with [Graphics.open_graph] or [Oaah.open_graph]
    * already *)
+
   val open_graph : t -> unit
-  (* Initialize a graphics window (with [Graphics.open_graph] of the proper
+  (** Initialize a graphics window (with [Graphics.open_graph] of the proper
    * size for the image [t]. *)
 
   val save  : t -> ?format:file_format -> string -> unit
   val poke  : t -> Color.t -> int -> int -> float -> unit
-  (* [poke img color x y alpha] draws this color at the given pixel location.
+  (** [poke img color x y alpha] draws this color at the given pixel location.
    * Note that (x, y) = (0, 0) corresponds to the upper left corner.
    * Alpha is supposed to be between 0 (transparent) to 1 (opaque). *)
 end

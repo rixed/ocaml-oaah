@@ -7,8 +7,8 @@ struct
   type t = {
     width  : int ;
     height : int ;
-    (* The bitmap itself is an array of X*Y colors *)
-    image  : Color.t array }
+    image  : Color.t array (** The bitmap itself is an array of X*Y colors *)
+  }
 
   let make ?(default=Color.zero) width height =
     { width  = width ;
@@ -18,7 +18,7 @@ struct
   let max_byte = Color.K.of_int 255
   let byte_of_comp f =
     Color.K.to_int (Color.K.mul max_byte f)
-  (* [byte_of_comp x] returns the byte value of a color component *)
+  (** [byte_of_comp x] returns the byte value of a color component *)
 
   let poke t c x y a =
     if x >= 0 && x < t.width &&
