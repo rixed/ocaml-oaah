@@ -19,12 +19,13 @@ struct
     Color.K.to_int (Color.K.mul max_byte f)
   (** [byte_of_comp x] returns the byte value of a color component *)
 
-  let poke t c x y a =
+  let poke t c a0 x y a =
     if x >= 0 && x < t.width &&
        y >= 0 && y < t.height &&
-       a > 0. then
-      let a = Color.K.of_float a in
-      let a = if Color.K.compare a Color.K.one > 0 then Color.K.one else a in
+       a > 0. && a0 > 0. then
+      let a = Color.K.of_float (a *. a0) in
+      let a = if Color.K.compare a Color.K.one > 0 then Color.K.one
+              else a in
       let a'= Color.K.sub Color.K.one a in
       let o = y * t.width + x in
       let combine_comp old_comp new_comp =
@@ -34,9 +35,9 @@ struct
       t.image.(o) <- Array.mapi (fun i p ->
         combine_comp p c.(i)) t.image.(o)
 
-  let poke_scanline t c x1 x2 y a =
+  let poke_scanline t c a0 x1 x2 y a =
     for x = x1 to x2 do
-      poke t c x y a
+      poke t c a0 x y a
     done
 
   let save t ?(format=PNM) filename =

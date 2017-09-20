@@ -26,13 +26,13 @@ let width, height = 400, 400
 let poke_segment image color x_start x_stop y alpha =
   let a = K.to_float alpha in
   for x = x_start to x_stop do
-    Img.poke image color x (height - y - 1) a
+    Img.poke image color 1. x (height - y - 1) a
   done
 
 let word () =
   let image = Img.make ~default:white width height in
   let word = Word.make "Hello World!" in
-  let ppolys = Word.to_polys word (K.of_float 0.15) in
+  let ppolys = Word.to_polys ~res:(K.of_float 0.15) word in
   let bbox_diag = Point.Bbox.diagonal (Word.bbox word) in
   let min_scale = K.of_float 0.05 in
   let next_scale scale =
@@ -45,10 +45,9 @@ let word () =
   let rec at_scale y scale =
     let draw_polys (pos, polys) =
       let trans = Point.add [| K.zero ; y |] (Point.mul scale pos) in
-      let polys = Algo.translate_poly
-        (Algo.scale_poly polys Point.zero scale)
-        trans in
-      Algo.rasterize polys (poke_segment image black) in
+      let polys = Algo.translate_poly trans
+        (Algo.scale_poly scale polys) in
+      Algo.rasterize (poke_segment image black) polys in
     if K.compare scale min_scale > 0 then begin
       List.iter draw_polys ppolys ;
       at_scale (next_y scale y) (next_scale scale)

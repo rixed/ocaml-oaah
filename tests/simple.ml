@@ -20,13 +20,9 @@ let display t =
 let white = [| Kcol.one ; Kcol.one ; Kcol.one |]
 let black = Color.zero
 
-let show_white () =
-  let image = Img.make ~default:white 300 200 in
-  display image
-
 let various_opacity () =
   let image = Img.make ~default:white 4 3 in
-  let put_pixel = Img.poke image black in
+  let put_pixel = Img.poke image black 1. in
   put_pixel 2 1 1. ;
   put_pixel 1 2 0.5 ;
   put_pixel 3 2 0.75 ;
@@ -40,22 +36,20 @@ let poly1 = List.fold_left Poly.insert_after Poly.empty
 
 let polygon () =
   let image = Img.make ~default:white 300 200 in
-  Algo.rasterize [ poly1 ] (fun x1 x2 y a ->
-    Img.poke_scanline image black x1 x2 y (K.to_float a)) ;
+  Algo.rasterize (fun x1 x2 y a ->
+    Img.poke_scanline image black 1. x1 x2 y (K.to_float a)) [ poly1 ] ;
   display image
 
 let hole () =
   let image = Img.make ~default:white 300 200 in
   let center = [| K.of_int 150 ; K.of_int 100 |] in
-  let poly2 = Algo.scale_single_poly poly1 center (K.of_float 0.6) in
-  let poly2 = Algo.inverse_single poly2 in
-  Algo.rasterize [ poly1 ; poly2 ] (fun x1 x2 y a ->
-    Img.poke_scanline image black x1 x2 y (K.to_float a)) ;
+  let poly2 = Poly.scale ~center (K.of_float 0.6) poly1 in
+  let poly2 = Algo.reverse_single poly2 in
+  Algo.rasterize (fun x1 x2 y a ->
+    Img.poke_scanline image black 1. x1 x2 y (K.to_float a)) [ poly1 ; poly2 ] ;
   display image
 
 let () =
-  show_white () ;
   various_opacity () ;
   polygon () ;
   hole ()
-

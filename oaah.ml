@@ -54,11 +54,11 @@ sig
    * size for the image [t]. *)
 
   val save  : t -> ?format:file_format -> string -> unit
-  val poke  : t -> Color.t -> int -> int -> float -> unit
-  (** [poke img color x y alpha] draws this color at the given pixel location.
+  val poke  : t -> Color.t -> float -> int -> int -> float -> unit
+  (** [poke img color opacity x y alpha] draws this color at the given pixel location.
    * Note that (x, y) = (0, 0) corresponds to the upper left corner.
    * Alpha is supposed to be between 0 (transparent) to 1 (opaque). *)
 
-  val poke_scanline : t -> Color.t -> int -> int -> int -> float -> unit
+  val poke_scanline : t -> Color.t -> float -> int -> int -> int -> float -> unit
 
 end
