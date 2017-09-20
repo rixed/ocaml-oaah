@@ -15,22 +15,6 @@ CFLAGS += -std=c99 -W -Wall
 # Rules for these are given in a case by case basis
 .SUFFIXES: .byte .opt
 
-ifdef WITH_OWN_LIB
-OWN_LIB_BYTE = -I $(top_srcdir)
-OWN_LIB_DEP_BYTE = $(top_srcdir)/$(WITH_OWN_LIB).cma
-OWN_LIB_OPT = -I $(top_srcdir)
-OWN_LIB_DEP_OPT = $(top_srcdir)/$(WITH_OWN_LIB).cmxa
-endif
-
-%.cmo: %.ml $(OWN_LIB_DEP_BYTE)
-	$(OCAMLC) -package "$(REQUIRES)" $(OWN_LIB_BYTE) $(OCAMLFLAGS) -c $<
-
-%.cmi: %.mli $(OWN_LIB_DEP_BYTE)
-	$(OCAMLC) -package "$(REQUIRES)" $(OWN_LIB_BYTE) $(OCAMLFLAGS) -c $<
-
-%.cmx: %.ml $(OWN_LIB_DEP_OPT)
-	$(OCAMLOPT) -package "$(REQUIRES)" $(OWN_LIB_BYTE) $(OCAMLOPTFLAGS) -c $<
-
 ML_OBJS  = $(ML_SOURCES:.ml=.cmo)
 ML_XOBJS = $(ML_SOURCES:.ml=.cmx)
 
@@ -44,7 +28,7 @@ distclean: clean distclean-spec
 
 # Dependencies
 .depend: $(ML_SOURCES) $(C_SOURCES)
-	$(OCAMLDEP) -package "$(REQUIRES)" -I .. $(ML_SOURCES) > $@
+	$(OCAMLDEP) -package "$(REQUIRES)" $(ML_SOURCES) > $@
 ifdef C_SOURCES
 	$(CC) -M $(CPPFLAGS) $(C_SOURCES) >> $@
 endif
