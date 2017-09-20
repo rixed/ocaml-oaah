@@ -1,3 +1,4 @@
+# vim:ft=make
 OCAMLC     = ocamlfind ocamlc
 OCAMLOPT   = ocamlfind ocamlopt
 OCAMLDEP   = ocamlfind ocamldep
@@ -14,22 +15,32 @@ CFLAGS += -std=c99 -W -Wall
 # Rules for these are given in a case by case basis
 .SUFFIXES: .byte .opt
 
-.ml.cmo:
-	$(OCAMLC) -package "$(REQUIRES)" $(OCAMLFLAGS) -c $<
+ifdef WITH_OWN_LIB
+OWN_LIB_BYTE = -I $(top_srcdir)
+OWN_LIB_DEP_BYTE = $(top_srcdir)/$(WITH_OWN_LIB).cma
+OWN_LIB_OPT = -I $(top_srcdir)
+OWN_LIB_DEP_OPT = $(top_srcdir)/$(WITH_OWN_LIB).cmxa
+endif
 
-.mli.cmi:
-	$(OCAMLC) -package "$(REQUIRES)" $(OCAMLFLAGS) -c $<
+%.cmo: %.ml $(OWN_LIB_DEP_BYTE)
+	$(OCAMLC) -package "$(REQUIRES)" $(OWN_LIB_BYTE) $(OCAMLFLAGS) -c $<
 
-.ml.cmx:
-	$(OCAMLOPT) -package "$(REQUIRES)" $(OCAMLOPTFLAGS) -c $<
+%.cmi: %.mli $(OWN_LIB_DEP_BYTE)
+	$(OCAMLC) -package "$(REQUIRES)" $(OWN_LIB_BYTE) $(OCAMLFLAGS) -c $<
+
+%.cmx: %.ml $(OWN_LIB_DEP_OPT)
+	$(OCAMLOPT) -package "$(REQUIRES)" $(OWN_LIB_BYTE) $(OCAMLOPTFLAGS) -c $<
 
 ML_OBJS  = $(ML_SOURCES:.ml=.cmo)
 ML_XOBJS = $(ML_SOURCES:.ml=.cmx)
 
 # Clean up
-.PHONY: clean clean-spec
+.PHONY: clean clean-spec distclean distclean-spec
 clean: clean-spec
-	rm -f *.cm[ioxa] *.cmxa *.a *.s *.o *.byte *.opt .depend
+	$(RM) *.cm[io] *.a *.s *.o *.byte *.opt .depend
+
+distclean: clean distclean-spec
+	$(RM) *.cma *.cmxa *.cmx *.annot
 
 # Dependencies
 .depend: $(ML_SOURCES) $(C_SOURCES)

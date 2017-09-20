@@ -37,6 +37,7 @@ check: $(NAME).cma $(NAME).cmxa
 clean-spec:
 	$(MAKE) -C tests clean
 
-distclean: clean
+distclean-spec:
+	$(MAKE) -C tests distclean
 
 -include .depend
